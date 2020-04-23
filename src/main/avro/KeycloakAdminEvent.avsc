@@ -1,0 +1,63 @@
+{
+  "name": "KeycloakAdminEvent",
+  "namespace": "com.frit.keycloak.kafka.event",
+  "type": "record",
+  "fields": [
+    {
+      "name": "time",
+      "type": ["null", {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }]
+    },
+    {
+      "name": "realmId",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "details",
+      "type": {
+        "name": "Details",
+        "type": "record",
+        "fields": [
+          {
+            "name": "realmId",
+            "type": ["null", "string"]
+          },
+          {
+            "name": "clientId",
+            "type": ["null", "string"]
+          },
+          {
+            "name": "userId",
+            "type": ["null", "string"]
+          },
+          {
+            "name": "ipAddress",
+            "type": ["null", "string"]
+          }
+        ]
+      }
+    },
+    {
+      "name": "resourceType",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "operationType",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "resourcePath",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "representation",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "error",
+      "type": ["null", "string"]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'com.commercehub.gradle.plugin.avro' version '0.19.1'
+    id 'com.github.imflog.kafka-schema-registry-gradle-plugin' version '0.8.0'
+}
+
+group 'com.frit.keycloak.kafka'
+version '0.1-SNAPSHOT'
+
+ext {
+    set('KeycloakVersion', "9.0.0")
+    set('KafkaClient', "2.5.0")
+    set('AvroVersion', '1.9.2')
+    set("ConfluentVersion", '5.4.1')
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://packages.confluent.io/maven/'
+    }
+}
+
+dependencies {
+
+    compileOnly ("org.keycloak:keycloak-core:${KeycloakVersion}")
+    compileOnly ("org.keycloak:keycloak-server-spi:${KeycloakVersion}")
+    compileOnly ("org.keycloak:keycloak-server-spi-private:${KeycloakVersion}")
+
+    implementation ("org.apache.kafka:kafka-clients:${KafkaClient}")
+    implementation ("io.confluent:kafka-avro-serializer:${ConfluentVersion}")
+    implementation ("org.apache.avro:avro:${AvroVersion}")
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+avro {
+    createOptionalGetters = true
+    fieldVisibility = "PRIVATE"
+}
+
+task uberJar(type: Jar) {
+    group = 'build'
+    archiveClassifier = 'uber'
+    from sourceSets.main.output
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll {it.name.endsWith('jar')}.collect{zipTree(it)}
+    }
+}
+
+schemaRegistry {
+    url = 'http://localhost:8081'
+    register {
+        subject('KeycloakEvent', "src/main/avro/KeycloakEvent.avsc")
+//        subject('KeycloakAdminEvent', "${project.name}/src/main/avro/KeycloakAdminEvent.avsc")
+    }
+}
