@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'com.frit.keycloak.kafka'
-version '0.1-SNAPSHOT'
+version '1.0'
 
 ext {
     set('KeycloakVersion', "9.0.0")
