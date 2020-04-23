@@ -9,7 +9,7 @@ group 'com.frit.keycloak.kafka'
 version '1.1-SNAPSHOT'
 
 ext {
-    set('KeycloakVersion', "9.0.0")
+    set('KeycloakVersion', "9.0.3")
     set('KafkaClient', "2.5.0")
     set('AvroVersion', '1.9.2')
     set("ConfluentVersion", '5.4.1')
