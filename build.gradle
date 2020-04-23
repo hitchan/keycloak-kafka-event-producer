@@ -62,6 +62,6 @@ schemaRegistry {
     url = 'http://localhost:8081'
     register {
         subject('KeycloakEvent', "src/main/avro/KeycloakEvent.avsc")
-//        subject('KeycloakAdminEvent', "${project.name}/src/main/avro/KeycloakAdminEvent.avsc")
+        subject('KeycloakAdminEvent', "src/main/avro/KeycloakAdminEvent.avsc")
     }
 }

@@ -1,6 +1,5 @@
 package com.frit.keycloak.kafka;
 
-import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.keycloak.Config;
 import org.keycloak.events.EventType;
